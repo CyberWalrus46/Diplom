@@ -1,0 +1,6 @@
+services:
+  someapi:
+    image: ${DOCKER_REGISTRY-}someapi
+    build:
+      context: .
+      dockerfile: Проект C#/Dockerfile
