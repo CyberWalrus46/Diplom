@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Some_API.Abstractions;
+using Some_API.Data;
+using Some_API.Repositories;
+using Some_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +18,16 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
+
+builder.Services.AddDbContext<MerchantDbContext>(
+    options =>
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString("MerchantDbContext"));
+    });
+
+builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
+
+builder.Services.AddScoped<IMerchantService, MerchantService>();
 
 var app = builder.Build();
 
