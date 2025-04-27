@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace Some_API.Controllers
 {
-    [Route("api/users")]
+    [Route("api/merchant")]
     [ApiController]
     public class MerchantController : ControllerBase
     {

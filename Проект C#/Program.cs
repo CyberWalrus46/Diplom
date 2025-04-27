@@ -24,10 +24,19 @@ builder.Services.AddDbContext<MerchantDbContext>(
     {
         options.UseNpgsql(builder.Configuration.GetConnectionString("MerchantDbContext"));
     });
+builder.Services.AddDbContext<EmployeeDbContext>(
+    options =>
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString("MerchantDbContext"));
+    });
 
 builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
 
 builder.Services.AddScoped<IMerchantService, MerchantService>();
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 
@@ -39,7 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        c.RoutePrefix = string.Empty; // Сделайте Swagger доступным по корневому пути
+        /*c.RoutePrefix = string.Empty; */// Сделайте Swagger доступным по корневому пути
     });
 }
 
